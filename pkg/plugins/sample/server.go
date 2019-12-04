@@ -52,10 +52,32 @@ func NewSamplePlugin() *SamplePlugin {
 
 // dial establishes the gRPC communication with the registered device plugin.
 func dial(unixSocketPath string, timeout time.Duration) (*grpc.ClientConn, error) {
+	fmt.Println("==========dial: ", unixSocketPath)
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
-	return grpc.DialContext(ctx, unixSocketPath, grpc.WithBlock())
+	return grpc.DialContext(ctx, unixSocketPath, grpc.WithBlock(), grpc.WithInsecure(),
+		grpc.WithContextDialer(
+			func(ctx context.Context, addr string) (net.Conn, error){
+				if deadline, ok := ctx.Deadline(); ok {
+					return net.DialTimeout("unix", addr, time.Until(deadline))
+				}
+				return net.DialTimeout("unix", addr, 0)
+			},
+		),
+	)
+	//c, err := grpc.Dial(unixSocketPath, grpc.WithInsecure(), grpc.WithBlock(),
+	//	grpc.WithTimeout(timeout),
+	//	grpc.WithDialer(func(addr string, timeout time.Duration) (net.Conn, error) {
+	//		return net.DialTimeout("unix", addr, timeout)
+	//	}),
+	//)
+	//
+	//if err != nil {
+	//	return nil, err
+	//}
+	//
+	//return c, nil
 }
 
 // Serve starts the gRPC server and register the device plugin to Kubelet

@@ -5,7 +5,7 @@ COPY . .
 RUN make build
 
 FROM debian:stretch-slim
-
-ADD /bin/k8s-device-plugin /bin/k8s-device-plugin
-
-CMD ["/bin/k8s-device-plugin"]
+WORKDIR /bin
+COPY --from=builder /go/src/github.com/asdfsx/k8s-device-plugin/bin/k8s-device-plugin .
+ENTRYPOINT ["/bin/k8s-device-plugin"]
+CMD ["device"]

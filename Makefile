@@ -23,7 +23,7 @@ build: ## Only Build binarys
 	go build -mod vendor ${LDFLAGS} ${PACKAGE}/cmd/k8s-device-plugin
 
 clean: ## delete the build target
-	rm bin/aios-operator
+	rm bin/k8s-device-plugin
 
 verify: ## veriy all dependencies
 	go mod verify
@@ -37,6 +37,7 @@ fmt: ## format code
 
 docker: ## build docker image
 	docker build -t ${REGISTRY}asdfsx/k8s-device-plugin:$(IMAGE_TAG) .
+	docker tag ${REGISTRY}asdfsx/k8s-device-plugin:$(IMAGE_TAG) ${REGISTRY}asdfsx/k8s-device-plugin:latest
 
 push: docker
 	docker push ${REGISTRY}asdfsx/k8s-device-plugin:$(IMAGE_TAG)

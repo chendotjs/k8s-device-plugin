@@ -27,9 +27,9 @@ spec:
       - key: CriticalAddonsOnly
         operator: Exists
       containers:
-      - image: asdfsx/k8s-device-plugin:latest
+      - image: asdfsx/k8s-device-plugin:master
         name: k8s-device-plugin
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         securityContext:
           privileged: true
         volumeMounts:
