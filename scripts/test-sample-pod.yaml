@@ -9,6 +9,8 @@ spec:
       resources:
         limits:
           aios/sample: 1
+        requests:
+          aios/sample: 1
       command:
         - sleep
         - "10000000"

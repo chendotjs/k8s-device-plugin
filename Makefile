@@ -1,4 +1,4 @@
-PACKAGE = github.com/asdfsx/k8s-device-plugin
+PACKAGE = github.com/chendotjs/k8s-device-plugin
 REGISTRY_DOMAIN =
 $(eval COMMIT_HASH=$(shell git rev-parse --short HEAD))
 $(eval TAG=$(shell git tag -l --points-at HEAD))

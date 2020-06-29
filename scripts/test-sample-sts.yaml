@@ -1,0 +1,28 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: test-sample-pod
+spec:
+  serviceName: test-sample
+  replicas: 3
+  selector:
+    matchLabels:
+      app: test-sample-pod
+  template:
+    metadata:
+      labels:
+        app: test-sample-pod
+    spec:
+      containers:
+        - name: test-sample-pod
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              sample/dummy: 1
+            requests:
+              sample/dummy: 1
+          command:
+            - sleep
+            - inf
+

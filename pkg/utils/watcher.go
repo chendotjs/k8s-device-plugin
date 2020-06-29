@@ -3,6 +3,7 @@ package utils
 import (
 	"os"
 	"os/signal"
+
 	"github.com/fsnotify/fsnotify"
 )
 

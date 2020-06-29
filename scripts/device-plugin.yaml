@@ -27,7 +27,7 @@ spec:
       - key: CriticalAddonsOnly
         operator: Exists
       containers:
-      - image: asdfsx/k8s-device-plugin:master
+      - image: hub.baidubce.com/zqtest/k8s-device-plugin
         name: k8s-device-plugin
         imagePullPolicy: Always
         securityContext:
